@@ -1,2 +1,0 @@
-# ArbeitszeitCalculator
-Created with CodeSandbox
