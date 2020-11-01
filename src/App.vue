@@ -28,21 +28,15 @@
                 <h2>Beginn:</h2>
                 <v-time-picker v-model="arrivalTime" scrollable format="24hr" class="elevation-4">
                   <v-spacer></v-spacer>
-                  <v-btn text color="secondary" @click="arrivalTime=currentTime()">Aktuelle Uhrzeit</v-btn>
+                  <v-btn text color="secondary" @click="arrivalTime = currentTime()">Aktuelle Uhrzeit</v-btn>
                   <v-spacer></v-spacer>
                 </v-time-picker>
               </div>
               <div>
                 <h2>Ende:</h2>
-                <v-time-picker
-                  v-model="leavingTime"
-                  scrollable
-                  actions
-                  format="24hr"
-                  class="elevation-4"
-                >
+                <v-time-picker v-model="leavingTime" scrollable actions format="24hr" class="elevation-4">
                   <v-spacer></v-spacer>
-                  <v-btn text color="secondary" @click="leavingTime=currentTime()">Aktuelle Uhrzeit</v-btn>
+                  <v-btn text color="secondary" @click="leavingTime = currentTime()">Aktuelle Uhrzeit</v-btn>
                   <v-spacer></v-spacer>
                 </v-time-picker>
               </div>
@@ -53,9 +47,7 @@
               <v-toolbar color="primary" dark flat dense>
                 <v-icon medium class="mr-3" color="grey lighten-5">mdi-calendar</v-icon>
                 <v-toolbar-title class="text-center">
-                  {{
-                  new Date().toLocaleDateString('de-DE')
-                  }}
+                  {{ new Date().toLocaleDateString("de-DE") }}
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-radio-group v-model="workhours" row hide-details>
@@ -79,14 +71,8 @@
                       <td>{{ netWorkTime(timeEntry) | decimalTime }}</td>
                       <td>{{ timeEntry.targetTime | decimalTime }}</td>
                       <td>
-                        <v-icon
-                          small
-                          class="mr-2"
-                          :color="overtime(timeEntry) < 0 ? 'red' : 'green'"
-                        >
-                          {{
-                          overtime(timeEntry) < 0 ? 'trending_down' : 'trending_up'
-                          }}
+                        <v-icon small class="mr-2" :color="overtime(timeEntry) < 0 ? 'red' : 'green'">
+                          {{ overtime(timeEntry) < 0 ? "trending_down" : "trending_up" }}
                         </v-icon>
                         {{ overtime(timeEntry) | decimalTime }}
                       </td>
@@ -109,7 +95,7 @@ import { worktimeMixin } from "@/mixins/worktime";
 export default {
   mixins: [worktimeMixin],
   components: {
-    calcButton
+    calcButton,
   },
   data: () => ({
     overhour: -3,
@@ -120,8 +106,8 @@ export default {
     arrivalTime: null,
     leavingTime: new Date().toLocaleTimeString([], {
       hour: "2-digit",
-      minute: "2-digit"
-    })
+      minute: "2-digit",
+    }),
   }),
   methods: {
     raiseAlert(bolAlert) {
@@ -131,9 +117,9 @@ export default {
     currentTime() {
       return new Date().toLocaleTimeString([], {
         hour: "2-digit",
-        minute: "2-digit"
+        minute: "2-digit",
       });
-    }
+    },
   },
   computed: {
     timeEntry() {
@@ -141,18 +127,18 @@ export default {
         return {
           arrivalTime: this.timeStringToDecimal(this.arrivalTime),
           leavingTime: this.timeStringToDecimal(this.leavingTime),
-          targetTime: this.workhours
+          targetTime: this.workhours,
         };
       }
-    }
+    },
   },
   watch: {
     arrivalTime: {
       handler() {
         localStorage.setItem("cacheDate", new Date().toDateString());
         localStorage.setItem("arrivalTime", this.arrivalTime);
-      }
-    }
+      },
+    },
   },
   mounted() {
     var currentDateStr = new Date().toDateString();
@@ -161,11 +147,15 @@ export default {
     } else {
       localStorage.clear();
     }
-  }
+  },
 };
 </script>
 
 <style>
+.myt th,
+.myt td {
+  font-size: 1.1rem;
+}
 .myt td {
   width: 25%;
 }
